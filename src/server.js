@@ -18,12 +18,6 @@ export const startServer = () => {
   app.use(cors());
   // app.use(logger);
 
-  //   app.get('/', (req, res) => {
-  //     res.json({
-  //       message: 'Welcome to server',
-  //     });
-  //   });
-
   app.get('/contacts', async (req, res) => {
     const data = await contactServices.getContacts();
 
