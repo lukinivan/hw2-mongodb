@@ -5,7 +5,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { logger } from './middlewares/logger.js';
 
-import contactRouter from './routers/contactsRoutes.js';
+import contactRouter from './routers/contacts.js';
 import { env } from './utils/env.js';
 
 export const startServer = () => {
@@ -13,6 +13,8 @@ export const startServer = () => {
 
   app.use(cors());
   // app.use(logger);
+
+  app.use(express.json());
 
   app.use('/contacts', contactRouter);
 
