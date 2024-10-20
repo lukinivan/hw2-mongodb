@@ -1,4 +1,4 @@
-import { ContactsList } from '../db/models/Contacts.js';
+import { ContactsList } from '../db/models/contactSchema.js';
 
 export const getContacts = () => ContactsList.find();
 
