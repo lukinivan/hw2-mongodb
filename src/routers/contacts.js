@@ -18,16 +18,19 @@ contactRouter.post('/', ctrWrapper(contactsController.addContactController));
 
 contactRouter.put(
   '/:id',
+  isValidId,
   ctrWrapper(contactsController.upsertContactController),
 );
 
 contactRouter.patch(
   '/:id',
+  isValidId,
   ctrWrapper(contactsController.patchContactController),
 );
 
 contactRouter.delete(
   '/:id',
+  isValidId,
   ctrWrapper(contactsController.deleteContactController),
 );
 
