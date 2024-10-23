@@ -1,5 +1,6 @@
 import * as contactServices from '../services/contacts.js';
 import createError from 'http-errors';
+import { contactJoiSchema } from '../validation/contacts.js';
 
 export const getContactsController = async (req, res, next) => {
   const data = await contactServices.getContacts();
