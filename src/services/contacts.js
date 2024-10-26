@@ -1,12 +1,24 @@
 import { ContactsList } from '../db/models/contactSchema.js';
 import { calcPaginationData } from '../utils/CalcPagionationData.js';
 
-export const getContacts = async ({ page, perPage: limit }) => {
+export const getContacts = async ({
+  page,
+  perPage: limit,
+  sortBy = '_id',
+  sortOrder = 'asc',
+}) => {
   const skip = (page - 1) * limit;
-  const data = await ContactsList.find().skip(skip).limit(limit);
+  const data = await ContactsList.find()
+    .skip(skip)
+    .limit(limit)
+    .sort({ [sortBy]: sortOrder });
   const count = await ContactsList.find().countDocuments();
 
-  const paginationData = calcPaginationData({ count, page, perPage: limit });
+  const paginationData = calcPaginationData({
+    count,
+    page,
+    perPage: limit,
+  });
 
   return {
     page,
