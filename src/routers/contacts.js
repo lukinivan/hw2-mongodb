@@ -1,6 +1,8 @@
 import { Router } from 'express';
 
 import * as contactsController from '../controllers/contacts.js';
+
+import { parsePaginationParams } from '../middlewares/parsePaginationParams.js';
 import { isValidId } from '../middlewares/isValidId.js';
 
 import { ctrWrapper } from '../utils/ctrWrapper.js';
@@ -13,7 +15,11 @@ import {
 
 const contactRouter = Router();
 
-contactRouter.get('/', ctrWrapper(contactsController.getContactsController));
+contactRouter.get(
+  '/',
+  parsePaginationParams,
+  ctrWrapper(contactsController.getContactsController),
+);
 
 contactRouter.get(
   '/:id',
