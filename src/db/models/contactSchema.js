@@ -39,6 +39,14 @@ const contactSchema = new Schema(
   },
 );
 
+export const contactParamsList = [
+  'name',
+  'phoneNumber',
+  'email',
+  'isFavorite',
+  'contactType',
+];
+
 contactSchema.post('save', handleSaveError);
 contactSchema.pre('findOneAndUpdate', setUpdateSettings);
 contactSchema.post('findOneAndUpdate', handleSaveError);

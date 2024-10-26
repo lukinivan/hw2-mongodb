@@ -7,6 +7,9 @@ import { isValidId } from '../middlewares/isValidId.js';
 
 import { ctrWrapper } from '../utils/ctrWrapper.js';
 import { validateBody } from '../utils/validateBody.js';
+import { parseSortParamsDecorator } from '../utils/parseSortParamsDecorator.js';
+
+import { contactParamsList } from '../db/models/contactSchema.js';
 
 import {
   contactJoiSchema,
@@ -18,6 +21,7 @@ const contactRouter = Router();
 contactRouter.get(
   '/',
   parsePaginationParams,
+  parseSortParamsDecorator(contactParamsList),
   ctrWrapper(contactsController.getContactsController),
 );
 
