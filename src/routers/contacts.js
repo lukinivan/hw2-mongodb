@@ -37,7 +37,7 @@ contactRouter.put(
 contactRouter.patch(
   '/:id',
   isValidId,
-  // validateBody(contactJoiUpdateSchema),
+  validateBody(contactJoiUpdateSchema),
   ctrWrapper(contactsController.patchContactController),
 );
 
