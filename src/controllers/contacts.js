@@ -9,6 +9,7 @@ export const getContactsController = async (req, res, next) => {
     perPage,
     sortBy,
     sortOrder,
+    filter: req.query,
   });
 
   res.json({
