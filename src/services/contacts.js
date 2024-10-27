@@ -21,7 +21,6 @@ export const getContacts = async ({
     .skip(skip)
     .limit(limit)
     .sort({ [sortBy]: sortOrder });
-  // const count = await ContactsList.find().countDocuments();
 
   const paginationData = calcPaginationData({
     count,
