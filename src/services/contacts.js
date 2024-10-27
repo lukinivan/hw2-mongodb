@@ -29,9 +29,9 @@ export const getContacts = async ({
   });
 
   return {
+    ...paginationData,
     page,
     perPage: limit,
-    ...paginationData,
     data,
     count,
   };
@@ -43,9 +43,9 @@ export const addContact = (payload) => ContactsList.create(payload);
 
 export const updateContactById = async (_id, payload, options = {}) => {
   const result = await ContactsList.findOneAndUpdate({ _id }, payload, {
+    ...options,
     new: true,
     includeResultMetadata: true,
-    ...options,
   });
 
   if (!result || !result.value) return null;
