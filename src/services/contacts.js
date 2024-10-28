@@ -13,14 +13,14 @@ export const getContacts = async ({
   if (filter.isFavorite)
     contactQuery.where('isFavorite').equals(filter.isFavorite);
 
-  const count = await ContactsList.find().merge(contactQuery).countDocuments();
-
   const skip = (page - 1) * limit;
   const data = await contactQuery
     .find()
     .skip(skip)
     .limit(limit)
     .sort({ [sortBy]: sortOrder });
+
+  const count = await ContactsList.find().merge(contactQuery).countDocuments();
 
   const paginationData = calcPaginationData({
     count,
@@ -29,9 +29,9 @@ export const getContacts = async ({
   });
 
   return {
-    ...paginationData,
     page,
     perPage: limit,
+    ...paginationData,
     data,
     count,
   };
