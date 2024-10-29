@@ -12,6 +12,8 @@ export const getContacts = async ({
 
   if (filter.isFavorite)
     contactQuery.where('isFavorite').equals(filter.isFavorite);
+  if (filter.contactType)
+    contactQuery.where('contactType').equals(filter.contactType);
 
   const skip = (page - 1) * limit;
   const data = await contactQuery

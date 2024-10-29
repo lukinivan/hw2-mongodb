@@ -1,15 +1,19 @@
 import * as contactServices from '../services/contacts.js';
 import createError from 'http-errors';
 
+import { parseFilterParams } from '../utils/parseFilterParams.js';
+
 export const getContactsController = async (req, res, next) => {
   const { page, perPage, sortBy, sortOrder } = req.query;
+
+  const filter = parseFilterParams(req.query);
 
   const data = await contactServices.getContacts({
     page,
     perPage,
     sortBy,
     sortOrder,
-    filter: req.query,
+    filter,
   });
 
   res.json({

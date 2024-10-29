@@ -1,4 +1,4 @@
-import { contactTypeList } from '../constants/contacts';
+import { contactTypeList } from '../constants/contacts.js';
 
 const parseContactType = (type) => {
   if (typeof type !== 'string') return;
@@ -6,14 +6,20 @@ const parseContactType = (type) => {
   return contactTypeList.includes(type) && type;
 };
 
-const parseNumber = (number) => {
-  if (typeof number !== 'string') return;
+// const parseNumber = (number) => {
+//   if (typeof number !== 'string') return;
+//   const parsedNumber = parseInt(number);
+//   if (Number.isNaN(parsedNumber)) return;
+//   return parsedNumber;
+// };
 
-  const parsedNumber = parseInt(number);
+export const parseFilterParams = (query) => {
+  const { isFavorite, contactType } = query;
 
-  if (Number.isNaN(parsedNumber)) return;
+  const parsedContactType = parseContactType(contactType);
 
-  return parsedNumber;
+  return {
+    isFavorite,
+    contactType: parsedContactType,
+  };
 };
-
-export const parseFilterParams = () => {};
