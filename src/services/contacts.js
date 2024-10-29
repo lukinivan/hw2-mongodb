@@ -1,5 +1,5 @@
 import { ContactsList } from '../db/models/contactSchema.js';
-import { calcPaginationData } from '../utils/CalcPagionationData.js';
+import { calcPaginationData } from '../utils/calcPaginationData.js';
 
 export const getContacts = async ({
   page,
