@@ -8,3 +8,12 @@ export const registerController = async (req, res) => {
     message: 'user registered successfully',
   });
 };
+
+export const loginController = async (req, res) => {
+  const session = await authServices.login(req.body);
+  console.log(session);
+
+  //   res.status(201).json({
+  //     message: 'user logged successfully',
+  //   });
+};
