@@ -1,4 +1,6 @@
 import createError from 'http-errors';
+import { HttpError } from 'http-errors';
+
 import * as authServices from '../services/auth.js';
 
 export const registerController = async (req, res) => {
@@ -11,9 +13,18 @@ export const registerController = async (req, res) => {
 
 export const loginController = async (req, res) => {
   const session = await authServices.login(req.body);
-  console.log(session);
 
-  //   res.status(201).json({
-  //     message: 'user logged successfully',
-  //   });
+  res.cookie('refreshToken', session.refreshToken, {
+    httpOnly: true,
+    expires: session.refreshTokenValidUntil,
+  });
+
+  res.cookie('sessionId', session._id, {
+    httpOnly: true,
+    expires: session.refreshTokenValidUntil,
+  });
+
+  res.json({
+    message: 'user logged successfully',
+  });
 };
