@@ -6,20 +6,20 @@ const contactSchema = new Schema(
   {
     name: {
       type: String,
-      min: min,
-      max: max,
+      min,
+      max,
       required: true,
     },
     phoneNumber: {
       type: String,
-      min: min,
-      max: max,
+      min,
+      max,
       required: true,
     },
     email: {
       type: String,
-      min: min,
-      max: max,
+      min,
+      max,
     },
     isFavorite: {
       type: Boolean,
@@ -27,10 +27,14 @@ const contactSchema = new Schema(
     },
     contactType: {
       type: String,
-      min: min,
-      max: max,
+      min,
+      max,
       enum: contactTypeList,
       required: false,
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
     },
   },
   {

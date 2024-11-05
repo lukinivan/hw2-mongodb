@@ -3,6 +3,7 @@ import { Router } from 'express';
 import * as contactsController from '../controllers/contacts.js';
 
 import { parsePaginationParams } from '../middlewares/parsePaginationParams.js';
+import { authenticate } from '../middlewares/authenticate.js';
 import { isValidId } from '../middlewares/isValidId.js';
 
 import { ctrWrapper } from '../utils/ctrWrapper.js';
@@ -17,6 +18,8 @@ import {
 } from '../validation/contacts.js';
 
 const contactRouter = Router();
+
+contactRouter.use(authenticate);
 
 contactRouter.get(
   '/',

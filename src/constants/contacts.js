@@ -5,3 +5,5 @@ export const max = [
   20,
   'length must be less than or equal to 20 characters long',
 ];
+
+export const numberPattern = /^[0-9]+$/;
