@@ -27,7 +27,6 @@ const sessionSchema = new Schema(
   },
   { versionKey: false, timestamps: true },
 );
-
 sessionSchema.post('save', handleSaveError);
 sessionSchema.pre('findOneAndUpdate', setUpdateSettings);
 sessionSchema.post('findOneAndUpdate', handleSaveError);
