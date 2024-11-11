@@ -8,6 +8,8 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter from './routers/auth.js';
 import contactRouter from './routers/contacts.js';
 
+import { UPLOAD_DIR } from './constants/index.js';
+
 import { env } from './utils/env.js';
 
 export const startServer = () => {
@@ -20,6 +22,7 @@ export const startServer = () => {
 
   app.use('/auth', authRouter);
   app.use('/contacts', contactRouter);
+  app.use('/uploads', express.static(UPLOAD_DIR));
 
   app.use(notFoundHandler);
 

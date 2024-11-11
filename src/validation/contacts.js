@@ -19,6 +19,7 @@ export const contactJoiSchema = Joi.object({
     .min(3)
     .max(20)
     .valid(...contactTypeList),
+  photo: Joi.string(),
 });
 
 export const contactJoiUpdateSchema = Joi.object({
@@ -40,4 +41,5 @@ export const contactJoiUpdateSchema = Joi.object({
     .min(3)
     .max(20)
     .valid(...contactTypeList),
+  photo: Joi.string(),
 });

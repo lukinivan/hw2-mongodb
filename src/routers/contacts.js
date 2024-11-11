@@ -5,6 +5,7 @@ import * as contactsController from '../controllers/contacts.js';
 import { parsePaginationParams } from '../middlewares/parsePaginationParams.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import { isValidId } from '../middlewares/isValidId.js';
+import { upload } from '../middlewares/upload.js';
 
 import { ctrWrapper } from '../utils/ctrWrapper.js';
 import { validateBody } from '../utils/validateBody.js';
@@ -36,6 +37,7 @@ contactRouter.get(
 
 contactRouter.post(
   '/',
+  upload.single('photo'),
   validateBody(contactJoiSchema),
   ctrWrapper(contactsController.addContactController),
 );
@@ -43,6 +45,7 @@ contactRouter.post(
 contactRouter.put(
   '/:id',
   isValidId,
+  upload.single('photo'),
   validateBody(contactJoiSchema),
   ctrWrapper(contactsController.upsertContactController),
 );
@@ -50,6 +53,7 @@ contactRouter.put(
 contactRouter.patch(
   '/:id',
   isValidId,
+  upload.single('photo'),
   validateBody(contactJoiUpdateSchema),
   ctrWrapper(contactsController.patchContactController),
 );
