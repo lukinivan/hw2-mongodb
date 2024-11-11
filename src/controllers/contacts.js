@@ -2,6 +2,11 @@ import * as contactServices from '../services/contacts.js';
 import createError from 'http-errors';
 
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { env } from '../utils/env.js';
+
+const enable_cloudinary = env('ENABLE_CLOUDINARY') === 'true';
 
 export const getContactsController = async (req, res, next) => {
   const { _id: userId } = req.user;
@@ -44,16 +49,13 @@ export const getContactsByIdController = async (req, res, next) => {
 export const addContactController = async (req, res) => {
   const { _id: userId } = req.user;
 
-  console.log(req.body);
-  console.log(req.file);
+  const data = await contactServices.addContact({ ...req.body, userId });
 
-  // const data = await contactServices.addContact({ ...req.body, userId });
-
-  // res.status(201).json({
-  //   status: 201,
-  //   message: 'Contact added successfully',
-  //   data,
-  // });
+  res.status(201).json({
+    status: 201,
+    message: 'Contact added successfully',
+    data,
+  });
 };
 
 export const upsertContactController = async (req, res) => {
@@ -77,10 +79,30 @@ export const upsertContactController = async (req, res) => {
 export const patchContactController = async (req, res) => {
   const { id } = req.params;
   const { _id: userId } = req.user;
-  const { data } = await contactServices.updateContact(
+  const photo = req.file;
+  let photoUrl;
+
+  if (photo) {
+    if (enable_cloudinary) {
+      photoUrl = await saveFileToCloudinary(photo);
+    } else {
+      photoUrl = await saveFileToUploadDir(photo);
+    }
+  }
+
+  const result = await contactServices.updateContact(
     { _id: id, userId },
-    { ...req.body, userId },
+    { ...req.body, userId, photo: photoUrl },
   );
+
+  if (!result) {
+    return res.status(404).json({
+      status: 404,
+      message: 'Contact not found or could not be updated',
+    });
+  }
+
+  const { data } = result;
 
   res.json({
     status: 200,

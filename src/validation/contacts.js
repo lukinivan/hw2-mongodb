@@ -24,14 +24,9 @@ export const contactJoiSchema = Joi.object({
 
 export const contactJoiUpdateSchema = Joi.object({
   name: Joi.string().min(3).max(20),
-  phoneNumber: Joi.string()
-    .pattern(numberPattern)
-    .min(3)
-    .max(20)
-    .required()
-    .messages({
-      'string.pattern.base': 'should be a number',
-    }),
+  phoneNumber: Joi.string().pattern(numberPattern).min(3).max(20).messages({
+    'string.pattern.base': 'should be a number',
+  }),
   email: Joi.string()
     .email({ minDomainSegments: 3, tlds: { allow: false } })
     .min(3)
